@@ -1,6 +1,6 @@
 <?php
 
-namespace cakebake\lessphp;
+namespace nojes\lessphp;
 
 use Yii;
 
@@ -23,6 +23,11 @@ class AssetConverter extends \yii\web\AssetConverter
     * @var bool You can tell less.php to remove comments and whitespace to generate minimized css files.
     */
     public $compress = false;
+
+    /**
+     * @var bool
+     */
+    public $forceParse = false;
 
     /**
     * @var bool less.php will save serialized parser data for each .less file. Faster, but more memory-intense.
@@ -58,7 +63,7 @@ class AssetConverter extends \yii\web\AssetConverter
         $result = $this->buildResult($asset, $dotPos, ($this->cacheSuffix === true) ? $assetFilemtime : null);
         $resultFilemtime = @filemtime("$basePath/$result");
 
-        if ($resultFilemtime < $assetFilemtime) {
+        if ($resultFilemtime < $assetFilemtime || $this->forceParse === true) {
             $this->parseLess($basePath, $asset, $result);
         }
 
