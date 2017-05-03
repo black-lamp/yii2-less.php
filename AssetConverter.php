@@ -1,6 +1,6 @@
 <?php
 
-namespace nojes\lessphp;
+namespace bl\lessphp;
 
 use Yii;
 
